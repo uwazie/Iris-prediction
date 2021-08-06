@@ -1,0 +1,72 @@
+SUPPORT VECTOR MACHINE (SVM)
+Predicting varieties of the iris flower using SVM
+from sklearn import datasets
+import numpy as np
+from sklearn.model_selection import train_test_split
+iris = datasets.load_iris()
+x = iris.data
+y = iris.target
+x.shape
+
+output:
+(150, 4)
+
+y.shape
+
+output:
+(150,)
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+x_train.shape
+
+output:
+(120, 4)
+
+y_train.shape
+
+output:
+(120,)
+
+x_test.shape
+
+output:
+(30, 4)
+
+y_test.shape
+
+output:
+(30,)
+
+from sklearn import svm
+classifier = svm.SVC(kernel='linear', C=1).fit(x_train, y_train)
+classifier.score(x_test, y_test)
+
+output:
+0.9666666666666667
+
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+y_prediction = classifier.predict(x_test)
+y_prediction
+
+output
+array([2, 0, 2, 0, 2, 1, 2, 1, 2, 2, 2, 0, 1, 1, 1, 0, 2, 2, 2, 0, 2, 1,
+       2, 0, 0, 1, 1, 2, 0, 2])
+
+confusion_matrix(y_test, y_prediction)
+
+output
+array([[ 8,  0,  0],
+       [ 0,  8,  1],
+       [ 0,  0, 13]], dtype=int64)
+
+classification_report(y_test, y_prediction)
+
+output
+'              precision    recall  f1-score   support\n\n           0       1.00      1.00      1.00         8\n           1       1.00      0.89      0.94         9\n           2       0.93      1.00      0.96        13\n\n    accuracy                           0.97        30\n   macro avg       0.98      0.96      0.97        30\nweighted avg       0.97      0.97      0.97        30\n'
+
+accuracy_score(y_test, y_prediction)
+
+output
+0.9666666666666667
+
+
